@@ -2,10 +2,7 @@ package com.lion.ebook.domain.member.service;
 
 
 import com.lion.ebook.domain.member.domain.Auth;
-import com.lion.ebook.domain.member.dto.RequestJoin;
-import com.lion.ebook.domain.member.dto.RequestModify;
-import com.lion.ebook.domain.member.dto.ResponseMember;
-import com.lion.ebook.domain.member.dto.SignForm;
+import com.lion.ebook.domain.member.dto.*;
 import com.lion.ebook.domain.member.entity.Member;
 import com.lion.ebook.domain.member.exception.MemberNotFoundException;
 import com.lion.ebook.domain.member.repository.MemberRepository;
@@ -44,4 +41,11 @@ public class MemberService {
     public Member findById(Long id) {
         return memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException("해당 멤버는 존재하지 않습니다."));
     }
+
+    public ResponseMember findUsername(RequestFindUsername requestFindUsername) {
+        Member member = memberRepository.findByEmail(requestFindUsername.getEmail()).orElseThrow(() -> new NoSuchElementException("해당하는 유저가 없습니다"));
+
+        return memberUtil.getResponse(member);
+    }
+
 }

@@ -1,8 +1,5 @@
 package com.lion.ebook.domain.member.controller;
-import com.lion.ebook.domain.member.dto.RequestJoin;
-import com.lion.ebook.domain.member.dto.RequestModify;
-import com.lion.ebook.domain.member.dto.ResponseMember;
-import com.lion.ebook.domain.member.dto.SignForm;
+import com.lion.ebook.domain.member.dto.*;
 import com.lion.ebook.domain.member.entity.Member;
 import com.lion.ebook.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,6 +49,28 @@ public class MemberController {
         String username = authentication.getName();
         ResponseMember responseMember = memberService.update(username, requestModify);
         return ResponseEntity.ok(responseMember);
+    }
+
+    @GetMapping("/member/findUsername")
+    public String join(Model model) {
+        model.addAttribute("requestFindUsername", new RequestFindUsername());
+        return "/member/findUsername";
+    }
+
+    @PostMapping("/member/findUsername")
+    public String join (
+            @ModelAttribute("requestFindUsername") RequestFindUsername requestFindUsername
+            , RedirectAttributes re
+    ) {
+        ResponseMember responseMember = memberService.findUsername(requestFindUsername);
+        re.addFlashAttribute("responseMember", responseMember);
+
+        return "redirect:/member/findResult";
+    }
+
+    @GetMapping("/member/findResult")
+    public String result() {
+        return "/member/findResult";
     }
 
 }
