@@ -49,4 +49,9 @@ public class CartService {
                 .build());
 
     }
+    @Transactional
+    public void deleteProduct(long id) {
+        cartRepository.deleteById(id);
+    }
+
 }
