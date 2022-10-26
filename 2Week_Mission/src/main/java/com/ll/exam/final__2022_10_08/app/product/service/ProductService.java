@@ -67,8 +67,9 @@ public class ProductService {
         productTagService.applyProductTags(product, productTagContents);
     }
 
-    public Optional<Product> findById(long id) {
-        return productRepository.findById(id);
+    // Todo : 추후에 예외처리
+    public Product findById(long id) {
+        return productRepository.findById(id).orElseThrow();
     }
 
     @Transactional
@@ -83,16 +84,14 @@ public class ProductService {
         return productRepository.findAllByOrderByIdDesc();
     }
 
-    public Optional<Product> findForPrintById(long id) {
-        Optional<Product> opProduct = findById(id);
+    public Product findForPrintById(long id) {
+        Product product = findById(id);
 
-        if (opProduct.isEmpty()) return opProduct;
+        List<ProductTag> productTags = getProductTags(product);
 
-        List<ProductTag> productTags = getProductTags(opProduct.get());
+        product.getExtra().put("productTags", productTags);
 
-        opProduct.get().getExtra().put("productTags", productTags);
-
-        return opProduct;
+        return product;
     }
 
     private List<ProductTag> getProductTags(Product product) {

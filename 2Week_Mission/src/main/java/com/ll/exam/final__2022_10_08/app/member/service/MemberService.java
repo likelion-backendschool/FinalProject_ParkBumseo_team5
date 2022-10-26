@@ -49,9 +49,9 @@ public class MemberService {
 
         return member;
     }
-
-    public Optional<Member> findByUsername(String username) {
-        return memberRepository.findByUsername(username);
+    // Todo : 예외처리 추후에 해야됨
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username).orElseThrow();
     }
 
     @Transactional

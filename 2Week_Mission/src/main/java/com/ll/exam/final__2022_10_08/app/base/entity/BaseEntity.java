@@ -15,6 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
+@Setter
 @SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
