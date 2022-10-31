@@ -48,4 +48,10 @@ public class MemberService {
         return memberUtil.getResponse(member);
     }
 
+    public ResponseMember findUserEmail(String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("해당하는 유저가 없습니다"));
+
+        return memberUtil.getResponse(member);
+    }
+
 }

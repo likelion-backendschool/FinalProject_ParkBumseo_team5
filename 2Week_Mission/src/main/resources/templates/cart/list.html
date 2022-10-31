@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}">
+
+<head>
+  <title>도서 목록</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+  <section class="section section-post-list container mx-auto">
+
+    <div class="px-2 pt-4">
+      <h1 class="font-bold text-lg">
+        <i class="fa-solid fa-book"></i>
+        장바구니 리스트
+      </h1>
+
+      <table class="table table-hover">
+        <thead class="table-success">
+        <tr>
+          <th>번호</th>
+          <th>상품명</th>
+          <th>저자</th>
+          <th>가격</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cart, loop : ${cartItems}">
+          <td th:text="${loop.index+1}"></td>
+          <td th:text="${cart.subject}"></td>
+          <td th:text="${cart.writer}"></td>
+          <td th:text="${cart.price}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

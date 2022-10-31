@@ -1,4 +1,4 @@
-package com.lion.ebook.global.config;
+package com.lion.ebook.global.config.security;
 
 import com.lion.ebook.domain.member.service.MemberSecurityService;
 import lombok.RequiredArgsConstructor;
