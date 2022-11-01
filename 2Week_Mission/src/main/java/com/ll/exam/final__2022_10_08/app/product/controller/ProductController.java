@@ -50,7 +50,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Product product = productService.findForPrintById(id).get();
+        Product product = productService.findForPrintById(id);
         List<Post> posts = productService.findPostsByProduct(product);
 
         model.addAttribute("product", product);
@@ -71,7 +71,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/modify")
     public String showModify(@PathVariable long id, Model model) {
-        Product product = productService.findForPrintById(id).get();
+        Product product = productService.findForPrintById(id);
 
         Member actor = rq.getMember();
 
@@ -87,7 +87,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
     public String modify(@Valid ProductModifyForm productForm, @PathVariable long id) {
-        Product product = productService.findById(id).get();
+        Product product = productService.findById(id);
         Member actor = rq.getMember();
 
         if (productService.actorCanModify(actor, product) == false) {
@@ -101,7 +101,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/remove")
     public String remove(@PathVariable long id) {
-        Product post = productService.findById(id).get();
+        Product post = productService.findById(id);
         Member actor = rq.getMember();
 
         if (productService.actorCanRemove(actor, post) == false) {
