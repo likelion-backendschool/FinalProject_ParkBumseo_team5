@@ -97,8 +97,8 @@ public class OrderController {
         });
     }
 
-    @Value("${custom.tossPayments.secretKey}")
-    private String SECRET_KEY;
+//    @Value("${custom.tossPayments.secretKey}")
+//    private String SECRET_KEY;
 
     @RequestMapping("/{id}/success")
     public String confirmPayment(
@@ -120,7 +120,7 @@ public class OrderController {
 
         HttpHeaders headers = new HttpHeaders();
         // headers.setBasicAuth(SECRET_KEY, ""); // spring framework 5.2 이상 버전에서 지원
-        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
+//        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> payloadMap = new HashMap<>();
