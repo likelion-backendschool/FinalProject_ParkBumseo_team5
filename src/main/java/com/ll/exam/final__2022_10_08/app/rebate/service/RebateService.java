@@ -23,15 +23,15 @@ public class RebateService {
     public void makeData(String yearMonth) {
         int monthEndDay = Ut.date.getEndDayOf(yearMonth);
 
-        // 월초
-        String fromDateStr = yearMonth + "-01 00:00:00.000000";
-        // 월말
-        String toDateStr = yearMonth + "-%02d 23:59:59.999999".formatted(monthEndDay);
-        LocalDateTime fromDate = Ut.date.parse(fromDateStr);
-        LocalDateTime toDate = Ut.date.parse(toDateStr);
+
+        String startDateStr = yearMonth + "-01 00:00:00.000000";
+
+        String endDateStr = yearMonth + "-%02d 23:59:59.999999".formatted(monthEndDay);
+        LocalDateTime startDate = Ut.date.parse(startDateStr);
+        LocalDateTime endDate = Ut.date.parse(endDateStr);
 
         // 해당 범위의 모든 주문 품목 조회
-        List<OrderItem> orderItems = orderService.findAllByPayDateBetween(fromDate, toDate);
+        List<OrderItem> orderItems = orderService.findAllByPayDateBetween(startDate, endDate);
 
         // OrderItem -> RebateOrderItem 변환
         List<RebateOrderItem> rebateOrderItems = orderItems.stream()
@@ -55,4 +55,15 @@ public class RebateService {
     public RebateOrderItem orderItemToRebateOrderItem(OrderItem orderItem) {
         return new RebateOrderItem(orderItem);
     }
+    public List<RebateOrderItem> findAllByPayDateBetweenOrderByIdAsc(String yearMonth) {
+        int monthEndDay = Ut.date.getEndDayOf(yearMonth);
+
+        String startDateStr = yearMonth + "-01 00:00:00.000000";
+        String endDateStr = yearMonth + "-%02d 23:59:59.999999".formatted(monthEndDay);
+        LocalDateTime startDate = Ut.date.parse(startDateStr);
+        LocalDateTime endDate = Ut.date.parse(endDateStr);
+
+        return rebateOrderItemRepository.findAllByPayDateBetweenOrderByIdAsc(startDate, endDate);
+    }
+
 }

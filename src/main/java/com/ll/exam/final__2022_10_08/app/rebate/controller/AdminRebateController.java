@@ -41,4 +41,18 @@ public class AdminRebateController {
 
         return "성공";
     }
+
+    @GetMapping("/rebateOrderItemList")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String showRebateList(String yearMonth, Model model) {
+        if (yearMonth == null) {
+            yearMonth = "2022-11";
+        }
+
+        List<RebateOrderItem> rebateOrderItems = rebateService.findAllByPayDateBetweenOrderByIdAsc(yearMonth);
+
+        model.addAttribute("items", rebateOrderItems);
+
+        return "adm/rebate/rebateOrderItemList";
+    }
 }
