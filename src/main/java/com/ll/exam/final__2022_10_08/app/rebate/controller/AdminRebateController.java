@@ -1,4 +1,4 @@
-package com.ll.exam.final__2022_10_08.app.admin.controller;
+package com.ll.exam.final__2022_10_08.app.rebate.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
