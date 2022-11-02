@@ -43,6 +43,8 @@ public class MemberService {
             throw new AlreadyJoinException();
         }
 
+        AuthLevel authLevel = username.equals("adm") ? AuthLevel.ADMIN : AuthLevel.NORMAL;
+
         Member member = Member.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
